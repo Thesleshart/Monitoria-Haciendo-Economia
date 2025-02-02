@@ -243,7 +243,7 @@ if (nota >= 4.5) {
   print("Reprobó")
 }
 
-# 16. Guardar resultados
+# 16. Guardar resultados te permite descargar o crear una base de datos 
 # write.csv(data, "dirección del documento.csv")
 
 
