@@ -92,113 +92,114 @@ library(zoo)
 # 3. Cargar datos (además del "import dataset"), se puede usar import data set para cargar archivos 
 
 # Leer un archivo de Excel
-# data <- read_excel("dirección del archivo.xslx") Hay que cambiar de \ a /
+data <- read_excel("dirección del archivo.xslx") Hay que cambiar de \ a /
 
 # Leer un archivo CSV
-# data_csv <- read_csv("dirección del archivo.csv")
+data_csv <- read_csv("dirección del archivo.csv")
 
 # Leer un archivo Stata (DTA)
-# data_dta <- read_dta("dirección del archivo.dta")
+data_dta <- read_dta("dirección del archivo.dta")
 
 # 4. Eliminar filas con valores NA (se pueden especificar columnas)
 
-#data <- data %>% drop_na()
+data <- data %>% drop_na()
 
 # O eliminar filas con valores NA (de toda la base de datos)
-# data <- na.omit(data)
+data <- na.omit(data)
 
 # 5. Eliminar filas duplicadas
-#data <- data %>% distinct()
+data <- data %>% distinct()
 # otra forma es dato_persona$individuo = datos_persona%Id
 # 6. Corregir tipos de datos
-#data <- data %>% # el %>se usa para editar base
+data <- data %>% # el %>se usa para editar base
 #mutate(
-# date_column = ymd(date_column),  # Convertir a fecha
-#  factor_column = as.factor(factor_column)  # Convertir a factor
+date_column = ymd(date_column),  # Convertir a fecha
+  factor_column = as.factor(factor_column)  # Convertir a factor
 # )
 
 
 # 5. Renombrar columnas
-#data <- data %>% rename(
-#new_column_name1 = old_column_name1,
-#new_column_name2 = old_column_name2
+data <- data %>% rename(
+new_column_name1 = old_column_name1,
+new_column_name2 = old_column_name2
 #)
 
 
 # 6. Exploración de datos
 
 # Veamos los primeros o últimos registros del dataframe para entender su estructura
-# head(data)             Parte superior
-#tail(personas)          Parte Inferior
+head(data)             Parte superior
+tail(personas)          Parte Inferior
 
 # 7. Análisis descriptivo
 
 # 8. Calcular estadísticas descriptivas básicas
-# summary(data)
+summary(data)
+help(summary)
 
 # 9. Manipulación de datos
 
-#Atajo => ctrl + shift + M => %>% 
+Atajo => ctrl + shift + M => %>% 
 
 # Filtrar datos por condiciones
-# filtered_data <- data %>% filter(variable1 > value) (puede ser ==, !=, <, >, <=, >=) 
+ filtered_data <- data %>% filter(variable1 > value) (puede ser ==, !=, <, >, <=, >=) 
 
 # Seleccionar columnas específicas
-# selected_data <- data %>% select(variable1, variable2, variable3)
+selected_data <- data %>% select(variable1, variable2, variable3)
 
 # Crear nuevas variables
-# data <- data %>% mutate(new_variable = variable1 * variable2)
+data <- data %>% mutate(new_variable = variable1 * variable2)
 
 
 # 10. Análisis de series temporales
 # Convertir a un objeto de series temporales
-# ts_data <- zoo(data$value, order.by = data$date)
-# plot(ts_data, main = "Series Temporales")
+ts_data <- zoo(data$value, order.by = data$date)
+plot(ts_data, main = "Series Temporales")
 
 # 11. Visualización de datos
 
 # Gráfico de dispersión
-# ggplot(data, aes(x = variable1, y = variable2)) + 
-#   geom_point() + 
-#   geom_smooth(method = "lm", se = FALSE, color = "blue") +            #También se puede insertar una línea de tendencia 
-#   labs(title = "Título del Gráfico", x = "Eje X", y = "Eje Y") 
+ ggplot(data, aes(x = variable1, y = variable2)) + 
+   geom_point() + 
+   geom_smooth(method = "lm", se = FALSE, color = "blue") +            #También se puede insertar una línea de tendencia 
+   labs(title = "Título del Gráfico", x = "Eje X", y = "Eje Y") 
 
 
 # Gráfico de líneas para series de tiempo
-# ggplot(data, aes(x = date, y = value)) + 
-#   geom_line() + 
-#   labs(title = "Series Temporales", x = "Fecha", y = "Valor")
+ggplot(data, aes(x = date, y = value)) + 
+  geom_line() + 
+   labs(title = "Series Temporales", x = "Fecha", y = "Valor")
 
 
 # Gráfico de barras
-# ggplot(summary_data, aes(x = category, y = mean_value)) + 
-#   geom_bar(stat = "identity") + 
-#   labs(title = "Promedio por Categoría", x = "Categoría", y = "Valor Promedio")
+ ggplot(summary_data, aes(x = category, y = mean_value)) + 
+   geom_bar(stat = "identity") + 
+   labs(title = "Promedio por Categoría", x = "Categoría", y = "Valor Promedio")
 
 # 12. Resumir datos por categoría usando group_by y summarise
 
-# summary_data <- data_2020 %>% 
-#   group_by(category) %>% 
-#   summarise(
-#     mean_value = mean(value, na.rm = TRUE), 
-#     sum_value = sum(value, na.rm = TRUE),
-#     count = n()
+ summary_data <- data_2020 %>% 
+   group_by(category) %>% 
+   summarise(
+     mean_value = mean(value, na.rm = TRUE), 
+     sum_value = sum(value, na.rm = TRUE),
+     count = n()
 #   )
 
-#na.rm=TRUE -> Hacer cálculos eliminando valores NA
+na.rm=TRUE -> Hacer cálculos eliminando valores NA
 
 # 13. Visualización de los datos resumidos
 
-# ggplot(summary_data, aes(x = category, y = mean_value)) + 
-#   geom_bar(stat = "identity") + 
-#   labs(title = "Promedio por Categoría en 2020", x = "Categoría", y = "Valor Promedio")
+ ggplot(summary_data, aes(x = category, y = mean_value)) + 
+   geom_bar(stat = "identity") + 
+   labs(title = "Promedio por Categoría en 2020", x = "Categoría", y = "Valor Promedio")
 
 # 14. Cálculo de cuartiles y rango intercuartílico
-#Q1 <- quantile(data$column1, 0.25, na.rm = TRUE)
-#Q3 <- quantile(data$column1, 0.75, na.rm = TRUE)
+Q1 <- quantile(data$column1, 0.25, na.rm = TRUE)
+Q3 <- quantile(data$column1, 0.75, na.rm = TRUE)
 
 # Calcular el rango intercuartil (IQR)
-#IQR <- Q3 - Q1
+IQR <- Q3 - Q1
 
 # 15. Condicionales: if y if else
 
@@ -244,7 +245,7 @@ if (nota >= 4.5) {
 }
 
 # 16. Guardar resultados te permite descargar o crear una base de datos 
-# write.csv(data, "dirección del documento.csv")
+write.csv(data, "dirección del documento.csv")
 
 
 
